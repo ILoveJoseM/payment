@@ -1,6 +1,6 @@
 {
     "name": "jose-chan/payment",
-    "description": "description...",
+    "description": "laravel-admin extension for payments",
     "type": "library",
     "keywords": ["laravel-admin", "extension"],
     "homepage": "https://github.com/jose-chan/payment",

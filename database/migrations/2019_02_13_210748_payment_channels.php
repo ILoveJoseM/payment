@@ -14,7 +14,7 @@ class PaymentChannels extends Migration
     public function up()
     {
         Schema::create('payment_channels', function (Blueprint $table) {
-            $table->increments('id')->primary();
+            $table->increments('id');
             $table->string("name", 64)->nullable(false)->comment("名称");
             $table->integer("account_id")->nullable(false)->comment("所属账号")->index();
             $table->integer("app_id")->nullable(false)->comment("所属应用")->index();

@@ -14,7 +14,7 @@ class PaymentTypes extends Migration
     public function up()
     {
         Schema::create('payment_types', function (Blueprint $table) {
-            $table->increments('id')->primary();
+            $table->increments('id');
             $table->timestamps();
             $table->string("name",32)->nullable(false)->comment("支付方式名字");
             $table->tinyInteger("status")->nullable(false)->default(1)->comment("状态");

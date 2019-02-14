@@ -14,7 +14,7 @@ class Apps extends Migration
     public function up()
     {
         Schema::create('apps', function (Blueprint $table) {
-            $table->increments('id')->primary();
+            $table->increments('id');
             $table->string("name", 32)->nullable(false)->comment("名称");
             $table->timestamps();
             $table->tinyInteger("status")->nullable(false)->default(1)->comment("状态");

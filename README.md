@@ -5,4 +5,10 @@ laravel-admin extension
 
 !> 暂时只支持微信公众号支付
 
+## 安装
+
+``
+composer require "jose-chan/"
+``
+
 

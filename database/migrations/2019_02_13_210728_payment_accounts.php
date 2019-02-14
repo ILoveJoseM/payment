@@ -14,7 +14,7 @@ class PaymentAccounts extends Migration
     public function up()
     {
         Schema::create('payment_accounts', function (Blueprint $table) {
-            $table->increments('id')->primary();
+            $table->increments('id');
             $table->string("name", 64)->nullable(false)->comment("支付账号名");
             $table->string("title", 64)->nullable(false)->comment("描述");
             $table->string("company", 64)->nullable(false)->comment("所属公司");

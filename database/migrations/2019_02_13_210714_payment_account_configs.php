@@ -14,7 +14,7 @@ class PaymentAccountConfigs extends Migration
     public function up()
     {
         Schema::create('payment_account_configs', function (Blueprint $table) {
-            $table->increments('id')->primary();
+            $table->increments('id');
             $table->timestamps();
             $table->string("key", 64)->nullable(false)->comment("键");
             $table->text("value")->nullable(false)->comment("值");

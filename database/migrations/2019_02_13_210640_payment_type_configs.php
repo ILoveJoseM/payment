@@ -14,7 +14,7 @@ class PaymentTypeConfigs extends Migration
     public function up()
     {
         Schema::create('payment_type_configs', function (Blueprint $table) {
-            $table->increments('id')->primary();
+            $table->increments('id');
             $table->integer('type')->nullable(false)->comment("支付类型")->index();
             $table->string("key", 32)->nullable(false)->comment("配置键值");
             $table->string("name", 32)->nullable(false)->comment("说明");

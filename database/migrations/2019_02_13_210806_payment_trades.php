@@ -14,7 +14,7 @@ class PaymentTrades extends Migration
     public function up()
     {
         Schema::create('payment_trades', function (Blueprint $table) {
-            $table->increments('id')->primary();
+            $table->increments('id');
             $table->bigInteger('payment_id')->nullable(false)->index();
             $table->string('order_id', 25)->nullable(false)->index();
             $table->integer('app_id')->nullable(false);

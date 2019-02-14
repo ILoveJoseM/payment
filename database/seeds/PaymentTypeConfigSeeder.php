@@ -35,12 +35,10 @@ class PaymentTypeConfigSeeder extends Seeder
             ]
         ];
 
-        $obj = new Model();
+
 
         foreach ($data as $datum){
-            $obj->setRawAttributes($datum);
-
-            $obj->save();
+            Model::create($datum);
         }
     }
 }

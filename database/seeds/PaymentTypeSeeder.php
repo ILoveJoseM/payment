@@ -18,12 +18,8 @@ class PaymentTypeSeeder extends Seeder
             "status" => 1
         ]];
 
-        $obj = new PaymentTypeModel();
-
         foreach ($data as $datum){
-            $obj->setRawAttributes($datum);
-
-            $obj->save();
+            PaymentTypeModel::create($datum);
         }
     }
 }

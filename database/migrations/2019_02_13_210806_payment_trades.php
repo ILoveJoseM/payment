@@ -35,11 +35,11 @@ class PaymentTrades extends Migration
             $table->string("extra", 255)->nullable(false);
             $table->integer("buyer_id")->nullable(false)->index();
             $table->enum("is_refund",["yes","no"])->nullable(false);
-            $table->timestamp("applied_at")->nullable(false);
-            $table->timestamp("completed_at")->nullable(false);
+            $table->timestamp("applied_at")->nullable(true);
+            $table->timestamp("completed_at")->nullable(true);
             $table->timestamps();
 
-            $table->index(["channel_id", "out_trade_no"], "channel_id");
+            $table->index(["channel_id", "out_trade_sn"], "channel_id");
         });
     }
 

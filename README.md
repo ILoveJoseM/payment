@@ -29,7 +29,7 @@ composer dump-autoload
 
 - 在DatabaseSeeder中引入Seeder类
 
-``php
+```php
 
     /**
      * Seed the application's database.
@@ -45,7 +45,7 @@ composer dump-autoload
              MenuSeeder::class,
          ]);
     }
-``
+```
 
 - 执行填充数据库
 ``

@@ -50,6 +50,6 @@ class PaymentTrades extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payment_trades');
+//        Schema::dropIfExists('payment_trades');
     }
 }

@@ -53,4 +53,74 @@ composer dump-autoload
 php artisan db:seed
 ``
 
+## 后台组件加载配置
 
+#### 引入PaymentServiceProvider
+
+config/app.php
+
+````php
+
+return [
+    
+    //……其他配置项省略
+
+    'providers' => [
+    
+        //……其他配置项省略
+        
+        /**
+         * laravel-admin providers
+         */
+        \JoseChan\Payment\PaymentServiceProvider::class,
+        
+    ]
+]
+
+````
+
+#### 加载extensions
+
+config/admin.php
+
+````php
+
+return [
+
+    //……其他配置项省略
+    
+    /*
+     * Settings for extensions.
+     */
+    'extensions' => [
+        "payment"=>[
+            "enable" => true,
+        ]
+    ],
+];
+
+````
+
+## 支付api加载
+
+#### 引入ApiServiceProvider
+
+````php
+
+return [
+    
+    //……其他配置项省略
+
+    'providers' => [
+    
+        //……其他配置项省略
+        
+        /**
+         * laravel-admin providers
+         */
+        \JoseChan\Payment\ApiServiceProvider::class,
+        
+    ]
+]
+
+````

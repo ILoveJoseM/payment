@@ -27,7 +27,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "JoseChan\\Payment\\PaymentServiceProvider"
+                "JoseChan\\Payment\\PaymentServiceProvider",
+                "JoseChan\\Payment\\ApiServiceProvider"
             ]
 
         }

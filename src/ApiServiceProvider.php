@@ -20,7 +20,7 @@ class ApiServiceProvider extends ServiceProvider
 
             Route::prefix('api/payment')
                 ->middleware('api')
-                ->namespace("JoseChan\Api\Controllers")
+                ->namespace("JoseChan\Payment\Api\Controllers")
                 ->group(__DIR__.'/../routes/api.php');
 
         });

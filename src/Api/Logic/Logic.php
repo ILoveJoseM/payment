@@ -1,5 +1,5 @@
 <?php
-namespace JoseChan\Api\Logic;
+namespace JoseChan\Payment\Api\Logic;
 
 abstract class Logic
 {

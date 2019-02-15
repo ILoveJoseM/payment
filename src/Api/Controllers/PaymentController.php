@@ -6,10 +6,10 @@
  * Time: 16:43
  */
 
-namespace JoseChan\Api\Controllers;
+namespace JoseChan\Payment\Api\Controllers;
 
 
-use JoseChan\Api\Logic\PaymentLogic;
+use JoseChan\Payment\Api\Logic\PaymentLogic;
 use \Illuminate\Http\Request;
 
 class PaymentController extends BaseController

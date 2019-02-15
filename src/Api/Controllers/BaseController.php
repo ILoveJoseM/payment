@@ -6,10 +6,10 @@
  * Time: 22:45
  */
 
-namespace JoseChan\Api\Controllers;
+namespace JoseChan\Payment\Api\Controllers;
 
-use JoseChan\Api\Constant\ErrorCode;
-use JoseChan\Api\Controller;
+use JoseChan\Payment\Api\Constant\ErrorCode;
+use JoseChan\Payment\Api\Controller;
 
 class BaseController extends Controller
 {

@@ -6,10 +6,10 @@
  * Time: 16:10
  */
 
-namespace App\Services\Payment;
+namespace JoseChan\Payment\Services\Payment;
 
 
-use JoseChan\Api\Constant\ErrorCode;
+use JoseChan\Payment\Api\Constant\ErrorCode;
 use JoseChan\Payment\Models\App;
 use JoseChan\Payment\Models\PaymentAccountConfig;
 use JoseChan\Payment\Models\PaymentChannel;

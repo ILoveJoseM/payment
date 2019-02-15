@@ -6,10 +6,10 @@
  * Time: 21:50
  */
 
-namespace JoseChan\Api;
+namespace JoseChan\Payment\Api;
 
 
-use JoseChan\Api\Constant\ErrorCode;
+use JoseChan\Payment\Api\Constant\ErrorCode;
 
 class Controller
 {

@@ -6,11 +6,11 @@
  * Time: 17:00
  */
 
-namespace JoseChan\Api\Logic;
+namespace JoseChan\Payment\Api\Logic;
 
 
-use JoseChan\Api\Constant\ErrorCode;
-use App\Services\Payment\PaymentService;
+use JoseChan\Payment\Api\Constant\ErrorCode;
+use JoseChan\Payment\Services\Payment\PaymentService;
 
 class PaymentLogic extends Logic
 {

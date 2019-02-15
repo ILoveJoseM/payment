@@ -6,7 +6,7 @@
  * Time: 22:32
  */
 
-namespace JoseChan\Api\Constant;
+namespace JoseChan\Payment\Api\Constant;
 
 use Illuminate\Http\Response;
 

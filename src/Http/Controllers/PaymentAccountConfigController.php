@@ -34,7 +34,7 @@ class PaymentAccountConfigController
             $content->breadcrumb(
                 ['text' => '首页', 'url' => '/'],
                 ['text' => '支付账号管理', 'url' => '/payment_accounts'],
-                ['text' => '支付账号配置', 'url' => "/payment_accounts/{$account_id}/configs"]
+                ['text' => '支付账号配置', 'url' => "/payment_account_configs/{$account_id}/configs"]
             );
 
             $content->body($this->grid($account_id));
@@ -62,7 +62,7 @@ class PaymentAccountConfigController
             $content->breadcrumb(
                 ['text' => '首页', 'url' => '/'],
                 ['text' => '支付账号管理', 'url' => '/payment_accounts'],
-                ['text' => '支付账号配置', 'url' => "/payment_accounts/{$account_id}/configs"],
+                ['text' => '支付账号配置', 'url' => "/payment_account_configs/{$account_id}/configs"],
                 ['text' => $description, ]
             );
         });

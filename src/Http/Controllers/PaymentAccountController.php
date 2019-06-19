@@ -8,6 +8,7 @@
 
 namespace JoseChan\Payment\Http\Controllers;
 
+use JoseChan\Payment\Extensions\Actions\PaymentAccountConfig;
 use JoseChan\Payment\Models\PaymentAccount;
 use JoseChan\Payment\Models\PaymentType;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -101,6 +102,10 @@ class PaymentAccountController extends Controller
             $grid->column("updated_at","最近修改时间")->sortable();
             $grid->column("status","状态")->using([0=>"冻结",1=>"启用"]);
 
+            $grid->actions(function(Grid\Displayers\Actions $actions)
+            {
+                $actions->append(new PaymentAccountConfig($actions->getResource(), $actions->getKey()));
+            });
 
             //允许筛选的项
             //筛选规则不允许用like，且搜索字段必须为索引字段

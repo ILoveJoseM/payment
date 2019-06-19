@@ -10,6 +10,6 @@ Route::namespace("\JoseChan\Payment\Http\Controllers")->group(function (Router $
     $router->resource('/payment_channel', 'PaymentChannelController');
     $router->resource('/payment_type_configs', 'PaymentTypeConfigController');
     $router->resource('/payment_types', 'PaymentTypeController');
-    $router->post('/payment_account_configs/{account_id}/configs/{config_id}', 'PaymentAccountController@store');
-    $router->resource('payment_account_configs.configs', 'PaymentAccountController');
+    $router->post('/payment_account_configs/{account_id}/configs/{config_id}', 'PaymentAccountConfigController@store');
+    $router->resource('payment_account_configs.configs', 'PaymentAccountConfigController');
 });

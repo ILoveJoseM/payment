@@ -90,7 +90,8 @@ class PaymentController extends BaseController
         }
 
         //取得收款账号的配置项
-        $account_configs = PaymentAccountConfig::where(["account_id" => $channel->account_id])->first();
+        /** @var \JoseChan\Payment\Collection\PaymentAccountConfig $account_configs */
+        $account_configs = PaymentAccountConfig::query()->where(["account_id" => $channel->account_id])->get();
         $config = $account_configs->formatConfig();
 
         $pay = new Cashier("wechat_official", $config);

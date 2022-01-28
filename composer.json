@@ -30,7 +30,6 @@
                 "JoseChan\\Payment\\PaymentServiceProvider",
                 "JoseChan\\Payment\\ApiServiceProvider"
             ]
-
         }
     }
 }

@@ -9,8 +9,13 @@
 namespace JoseChan\Payment\Api\Controllers;
 
 
+use JoseChan\Payment\Api\Constant\ErrorCode;
 use JoseChan\Payment\Api\Logic\PaymentLogic;
 use \Illuminate\Http\Request;
+use JoseChan\Payment\Models\PaymentAccountConfig;
+use JoseChan\Payment\Models\PaymentChannel;
+use JoseChan\Payment\Models\PaymentTrade;
+use Runner\NezhaCashier\Cashier;
 
 class PaymentController extends BaseController
 {
@@ -30,13 +35,14 @@ class PaymentController extends BaseController
                 $data['app_id'],
                 $data['order_id'],
                 $data['amount'],
-                isset($data['info'])?$data['info'] : ""
+                isset($data['info']) ? $data['info'] : ""
             )
         );
 
     }
 
-    public function wechatOfficial(Request $request){
+    public function wechatOfficial(Request $request)
+    {
 
         $data = $request->all();
 
@@ -53,5 +59,50 @@ class PaymentController extends BaseController
                 $data['open_id']
             )
         );
+    }
+
+    public function notify()
+    {
+//        $config = config("payment");
+        $pay = new Cashier("wechat_official", []);
+
+        $request = $pay->convertNotificationToArray($pay->receiveNotificationFromRequest());
+
+        $payment_id = isset($request['order_id']) ? $request['order_id'] : null;
+
+        if (empty($payment_id)) {
+            echo $pay->fail();
+            die();
+        }
+
+        //交易单
+        $payment = PaymentTrade::where("payment_id", $payment_id)->first();
+
+        if (empty($payment)) {
+            ErrorCode::error(ErrorCode::PAYMENT_NOT_EXISTS);
+        }
+
+        //付款渠道
+        $channel = PaymentChannel::find($payment->channel_id)->first();
+
+        if (empty($channel)) {
+            ErrorCode::error(ErrorCode::CHANNEL_NOT_EXISTS);
+        }
+
+        //取得收款账号的配置项
+        $account_configs = PaymentAccountConfig::where(["account_id" => $channel->account_id])->first();
+        $config = $account_configs->formatConfig();
+
+        $pay = new Cashier("wechat_official", $config);
+
+        $form = $pay->notify("charge");
+
+        if ($form->get("status") === "paid") {
+            if (PaymentLogic::getInstance()->notify($form->get('order_id'))) {
+                echo $pay->success();
+                die();
+            }
+        }
+
     }
 }

@@ -24,23 +24,23 @@ class PaymentService extends Service
     {
         $app = App::find($app_id);
 
-        if(empty($app)){
+        if (empty($app)) {
             return false;
         }
 
         $payment = PaymentTrade::where([
-            "order_id"=>$order_id,
+            "order_id" => $order_id,
             "app_id" => $app_id
         ])->first();
 
-        if(!empty($payment) && $payment->status === 'ready'){
+        if (!empty($payment) && $payment->status === 'ready') {
             return $payment->payment_id;
         }
 
-        if(!empty($payment)){
+        if (!empty($payment)) {
             $payment->payment_id = $this->getPaymentId();
             $payment->status = "ready";
-        }else{
+        } else {
             $payment = new PaymentTrade();
 
             $payment->setRawAttributes([
@@ -53,7 +53,7 @@ class PaymentService extends Service
             ]);
         }
 
-        if($payment->save()){
+        if ($payment->save()) {
             return $payment->payment_id;
         }
 
@@ -65,28 +65,28 @@ class PaymentService extends Service
         //付款渠道
         $channel = PaymentChannel::find($channel_id)->first();
 
-        if(empty($channel))
-        {
+        if (empty($channel)) {
             ErrorCode::error(ErrorCode::CHANNEL_NOT_EXISTS);
         }
 
         //交易单
         $payment = PaymentTrade::where("payment_id", $payment_id)->first();
 
-        if(empty($payment))
-        {
+        if (empty($payment)) {
             ErrorCode::error(ErrorCode::PAYMENT_NOT_EXISTS);
         }
 
         //取得收款账号的配置项
-        $account_configs = PaymentAccountConfig::where(["account_id" => $channel->account_id]);
+        /** @var \JoseChan\Payment\Collection\PaymentAccountConfig $account_configs */
+        $account_configs = PaymentAccountConfig::query()->where(["account_id" => $channel->account_id])->get();
+        $config = $account_configs->formatConfig();
 
-        $config = [];
-
-        $account_configs->each(function($item, $key) use (&$config)
-        {
-            $config[$item['key']] = $item['value'];
-        });
+//        $config = [];
+//
+//        $account_configs->each(function($item, $key) use (&$config)
+//        {
+//            $config[$item['key']] = $item['value'];
+//        });
 
         //创建交易
         $pay = new Cashier("wechat_official", $config);
@@ -94,7 +94,7 @@ class PaymentService extends Service
         $order = [
             "order_id" => $payment_id,
             "amount" => Amount::dollarToCent($payment->amount),
-            "subject" => $payment->extra?:"订单号".$payment->order_id,
+            "subject" => $payment->extra ?: "订单号" . $payment->order_id,
             'currency' => 'CNY',
             'description' => $payment->extra,
             'extras' => ['open_id' => $openid],
@@ -102,7 +102,7 @@ class PaymentService extends Service
         ];
 
         $params = $pay->charge($order)->get("parameters");
-        if(!empty($params)){
+        if (!empty($params)) {
 
             $payment->status = "apply";
             $payment->applied_at = date("Y-m-d H:i:s");
@@ -114,8 +114,22 @@ class PaymentService extends Service
 
     }
 
+    public function notify($pay_sn)
+    {
+        /** @var PaymentTrade|null $order */
+        $order = PaymentTrade::query()->where("payment_id", "=", $pay_sn)->first();
+
+        if ($order && $order->status == 'apply') {
+            $order->status = "paid";
+
+            return $order->save();
+        }
+
+        return false;
+    }
+
     protected function getPaymentId()
     {
-        return microtime(true)*1000000;
+        return microtime(true) * 1000000;
     }
 }

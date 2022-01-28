@@ -21,7 +21,7 @@ class PaymentLogic extends Logic
 
         $result = $sdk->createOrder($app_id, $order_id, $amount, $info);
 
-        if(!$result){
+        if (!$result) {
             ErrorCode::error(ErrorCode::APP_NOT_EXISTS);
         }
 
@@ -34,6 +34,15 @@ class PaymentLogic extends Logic
         $sdk = new PaymentService();
 
         $result = $sdk->wechatOfficial($channel_id, $payment_id, $openid);
+
+        return $result;
+    }
+
+    public function notify($pay_sn)
+    {
+        $sdk = new PaymentService();
+
+        $result = $sdk->notify($pay_sn);
 
         return $result;
     }
